@@ -1,0 +1,185 @@
+<!-- src/app/components/order-create/order-create.component.html -->
+
+<div class="container">
+  <h2>Crear Nueva Orden</h2>
+
+  <!-- Mostrar mensaje de error si existe -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Formulario Reactivo -->
+  <form [formGroup]="orderForm" (ngSubmit)="createOrder()">
+    <!-- Customer ID -->
+    <div class="form-group">
+      <label for="customerId">Customer ID:</label>
+      <input
+        type="text"
+        id="customerId"
+        formControlName="customerId"
+        class="form-control"
+        [ngClass]="{'is-invalid': f['customerId'].invalid && (f['customerId'].dirty || f['customerId'].touched)}"
+      />
+      <div *ngIf="f['customerId'].invalid && (f['customerId'].dirty || f['customerId'].touched)" class="invalid-feedback">
+        <div *ngIf="f['customerId'].errors?.['required']">Customer ID es obligatorio.</div>
+        <div *ngIf="f['customerId'].errors?.['maxlength']">Customer ID no puede exceder 5 caracteres.</div>
+      </div>
+    </div>
+
+    <!-- Employee ID -->
+    <div class="form-group">
+      <label for="employeeId">Employee ID:</label>
+      <input
+        type="number"
+        id="employeeId"
+        formControlName="employeeId"
+        class="form-control"
+        [ngClass]="{'is-invalid': f['employeeId'].invalid && (f['employeeId'].dirty || f['employeeId'].touched)}"
+      />
+      <div *ngIf="f['employeeId'].invalid && (f['employeeId'].dirty || f['employeeId'].touched)" class="invalid-feedback">
+        <div *ngIf="f['employeeId'].errors?.['required']">Employee ID es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Order Date -->
+    <div class="form-group">
+      <label for="orderDate">Order Date:</label>
+      <input
+        type="date"
+        id="orderDate"
+        formControlName="orderDate"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Required Date -->
+    <div class="form-group">
+      <label for="requiredDate">Required Date:</label>
+      <input
+        type="date"
+        id="requiredDate"
+        formControlName="requiredDate"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Shipped Date -->
+    <div class="form-group">
+      <label for="shippedDate">Shipped Date:</label>
+      <input
+        type="date"
+        id="shippedDate"
+        formControlName="shippedDate"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Ship Via -->
+    <div class="form-group">
+      <label for="shipVia">Ship Via:</label>
+      <input
+        type="number"
+        id="shipVia"
+        formControlName="shipVia"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Freight -->
+    <div class="form-group">
+      <label for="freight">Freight:</label>
+      <input
+        type="number"
+        id="freight"
+        formControlName="freight"
+        class="form-control"
+        [ngClass]="{'is-invalid': f['freight'].invalid && (f['freight'].dirty || f['freight'].touched)}"
+      />
+      <div *ngIf="f['freight'].invalid && (f['freight'].dirty || f['freight'].touched)" class="invalid-feedback">
+        <div *ngIf="f['freight'].errors?.['pattern']">Freight debe ser un número válido con hasta 2 decimales.</div>
+      </div>
+    </div>
+
+    <!-- Ship Name -->
+    <div class="form-group">
+      <label for="shipName">Ship Name:</label>
+      <input
+        type="text"
+        id="shipName"
+        formControlName="shipName"
+        class="form-control"
+        [ngClass]="{'is-invalid': f['shipName'].invalid && (f['shipName'].dirty || f['shipName'].touched)}"
+      />
+      <div *ngIf="f['shipName'].invalid && (f['shipName'].dirty || f['shipName'].touched)" class="invalid-feedback">
+        <div *ngIf="f['shipName'].errors?.['required']">Ship Name es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Ship Address -->
+    <div class="form-group">
+      <label for="shipAddress">Ship Address:</label>
+      <input
+        type="text"
+        id="shipAddress"
+        formControlName="shipAddress"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Ship City -->
+    <div class="form-group">
+      <label for="shipCity">Ship City:</label>
+      <input
+        type="text"
+        id="shipCity"
+        formControlName="shipCity"
+        class="form-control"
+        [ngClass]="{'is-invalid': f['shipCity'].invalid && (f['shipCity'].dirty || f['shipCity'].touched)}"
+      />
+      <div *ngIf="f['shipCity'].invalid && (f['shipCity'].dirty || f['shipCity'].touched)" class="invalid-feedback">
+        <div *ngIf="f['shipCity'].errors?.['required']">Ship City es obligatoria.</div>
+      </div>
+    </div>
+
+    <!-- Ship Region -->
+    <div class="form-group">
+      <label for="shipRegion">Ship Region:</label>
+      <input
+        type="text"
+        id="shipRegion"
+        formControlName="shipRegion"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Ship Postal Code -->
+    <div class="form-group">
+      <label for="shipPostalCode">Ship Postal Code:</label>
+      <input
+        type="text"
+        id="shipPostalCode"
+        formControlName="shipPostalCode"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Ship Country -->
+    <div class="form-group">
+      <label for="shipCountry">Ship Country:</label>
+      <input
+        type="text"
+        id="shipCountry"
+        formControlName="shipCountry"
+        class="form-control"
+        [ngClass]="{'is-invalid': f['shipCountry'].invalid && (f['shipCountry'].dirty || f['shipCountry'].touched)}"
+      />
+      <div *ngIf="f['shipCountry'].invalid && (f['shipCountry'].dirty || f['shipCountry'].touched)" class="invalid-feedback">
+        <div *ngIf="f['shipCountry'].errors?.['required']">Ship Country es obligatorio.</div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Crear Orden</button>
+    <button type="button" class="btn btn-secondary ml-2" (click)="router.navigate(['/'])">Cancelar</button>
+  </form>
+</div>

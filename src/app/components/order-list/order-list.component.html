@@ -1,0 +1,63 @@
+<!-- src/app/components/order-list/order-list.component.html -->
+
+<div class="container">
+    <h2>Lista de Órdenes</h2>
+    
+    <div class="actions">
+      <button (click)="getOrders()">Actualizar Lista</button>
+      <button (click)="router.navigate(['/create-order'])">Crear Nueva Orden</button>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+  
+    <table *ngIf="orders.length > 0; else noOrders" border="1" cellpadding="10">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer ID</th>
+          <th>Employee ID</th>
+          <th>Order Date</th>
+          <th>Required Date</th>
+          <th>Shipped Date</th>
+          <th>Ship Via</th>
+          <th>Freight</th>
+          <th>Ship Name</th>
+          <th>Ship Address</th>
+          <th>Ship City</th>
+          <th>Ship Region</th>
+          <th>Ship Postal Code</th>
+          <th>Ship Country</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.orderId }}</td>
+          <td>{{ order.customerId }}</td>
+          <td>{{ order.employeeId || 'N/A' }}</td>
+          <td>{{ order.orderDate ? (order.orderDate | date:'shortDate') : 'N/A' }}</td>
+          <td>{{ order.requiredDate ? (order.requiredDate | date:'shortDate') : 'N/A' }}</td>
+          <td>{{ order.shippedDate ? (order.shippedDate | date:'shortDate') : 'N/A' }}</td>
+          <td>{{ order.shipVia || 'N/A' }}</td>
+          <td>{{ order.freight || 'N/A' }}</td>
+          <td>{{ order.shipName }}</td>
+          <td>{{ order.shipAddress || 'N/A' }}</td>
+          <td>{{ order.shipCity || 'N/A' }}</td>
+          <td>{{ order.shipRegion || 'N/A' }}</td>
+          <td>{{ order.shipPostalCode || 'N/A' }}</td>
+          <td>{{ order.shipCountry || 'N/A' }}</td>
+          <td>
+            <button (click)="editOrder(order.orderId)">Editar</button>
+            <button (click)="deleteOrder(order.orderId)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #noOrders>
+      <p>No hay órdenes disponibles.</p>
+    </ng-template>
+  </div>
+  
